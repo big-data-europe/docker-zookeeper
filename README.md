@@ -38,4 +38,25 @@ To run this Zookeeper Docker with the BDE platform
   * bde-one.example.com
   * bde-two.example.com
   * bde-three.example.com
-* Extend this docker image adding a suitable zoo.cfg file
+* Extend this docker image adding suitable zoo.cfg and zoo_replicated1.cfg.dynamic files to /config directory
+  * Dockerfile
+  ```bash
+  FROM bde2020/zookeeper
+  ADD zoo.cfg /config/
+  ADD zoo_replicated1.cfg.dynamic
+  ```
+  * zoo.cfg
+  ```bash
+  standaloneEnabled=false
+  dataDir=/tmp/zookeeper
+  syncLimit=2
+  initLimit=5
+  tickTime=2000
+  dynamicConfigFile=/config/zoo_replicated1.cfg.dynamic
+  ```
+  * zoo_replicated1.cfg.dynamic
+  ```bash
+  server.1=bde-one.example.com:31200:31201:participant;31202
+  server.2=bde-two.example.com:31200:31201:participant;31202
+  server.3=bde-three.example.com:31200:31201:participant;31202
+  ```
