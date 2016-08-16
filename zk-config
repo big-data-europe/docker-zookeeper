@@ -24,6 +24,7 @@ do
   then
     IFS="="
     read -r key ZK_DATADIR <<< "$line"
+    [[ -d "$ZK_DATADIR" ]] || mkdir -p "$ZK_DATADIR"
   fi
   if [[ $line = dynamicConfigFile=* ]];
   then
