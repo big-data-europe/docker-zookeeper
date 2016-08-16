@@ -60,3 +60,7 @@ To run this Zookeeper Docker with the BDE platform
   server.2=bde-two.example.com:31200:31201:participant;31202
   server.3=bde-three.example.com:31200:31201:participant;31202
   ```
+  * Start the image with
+  ```bash
+  cd /app/bin && ./zk-config && zkServer.sh start-foreground
+  ```
