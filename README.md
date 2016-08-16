@@ -38,3 +38,4 @@ To run this Zookeeper Docker with the BDE platform
   * bde-one.example.com
   * bde-two.example.com
   * bde-three.example.com
+* Extend this docker image adding a suitable zoo.cfg file
