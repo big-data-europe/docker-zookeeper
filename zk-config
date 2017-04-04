@@ -2,7 +2,9 @@
 
 HOSTNAME=`hostname`
 IFS=" "
-IPS=`hostname -I`
+IPS=`hostname -i`
+echo "HOSTNAME==>$HOSTNAME";
+echo "IPS==>$IPS";
 read -r -a IP_ADDRESSES <<< "$IPS"
 
 ZK_CONF_DIR="/config"
