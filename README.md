@@ -64,7 +64,7 @@ To run this Zookeeper Docker with the BDE platform
   ```bash
   cd /app/bin && ./zk-config && zkServer.sh start-foreground
   ```
-* The following example is taken from SC6
+* The following example is taken from SC6 (the full example can be found here: https://github.com/big-data-europe/pilot-sc6-cycle2)
   * Docker extension (built as your/zookeeper)
   ```bash
   FROM bde2020/zookeeper:latest
