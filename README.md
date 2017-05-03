@@ -1,4 +1,3 @@
-# [DEPRECATED] SC6 uses the official zookeeper docker image
 # Zookeeper Docker
 
 Versions used in this docker image:
