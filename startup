@@ -1,4 +1,0 @@
-#!/bin/bash
-
-cd /app/bin && ./zk-config && ./zkServer.sh start-foreground
-

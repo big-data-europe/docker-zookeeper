@@ -1,8 +1,8 @@
 # Zookeeper Docker
 
 Versions used in this docker image:
-* Zookeeper Version: 3.5.2-alpha
-* Java 1.8.0_72
+* Zookeeper Version: 3.4.11
+* Java 1.8.x
  
 Image details:
 * Installation directory: /app (i.e: /usr/local/apache-zookeeper/current)
