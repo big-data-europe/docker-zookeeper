@@ -1,25 +1,32 @@
-#FROM ubuntu:trusty
-#FROM ubuntu:16.04
-#FROM java:8
-FROM openjdk:8-alpine
+FROM java:8
 
 MAINTAINER Juergen Jakobitsch <jakobitschj@semantic-web.at>
 
-#RUN apt-get update && apt-get install -y vim
+# Install utilities
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y netcat
 
-RUN apk add --update bash && rm -rf /var/cache/apk/*
+# Zookeeper version to be used
+ENV ZK_VERSION zookeeper-3.4.11
 
-ADD zookeeper-3.5.2-alpha.tar.gz /usr/local/apache-zookeeper/
+# Download distribution
+RUN wget -q http://ftp.halifax.rwth-aachen.de/apache/zookeeper/"$ZK_VERSION"/"$ZK_VERSION".tar.gz -O /tmp/"$ZK_VERSION".tar.gz \
+    && tar xfz /tmp/"$ZK_VERSION".tar.gz -C /opt \
+    && rm /tmp/"$ZK_VERSION".tar.gz
 
-RUN ln -s /usr/local/apache-zookeeper/zookeeper-3.5.2-alpha /usr/local/apache-zookeeper/current
+# The common installation dirname to use zookeeper
+RUN ln -s /opt/"$ZK_VERSION" /opt/zookeeper
 
-RUN rm -f /tmp/zookeeper-3.5.2-alpha.tar.gz
+# Define the run configuration
+RUN cd /opt/zookeeper/conf \
+    && cp -p zoo_sample.cfg zoo.cfg
 
-RUN ln -s /usr/local/apache-zookeeper/zookeeper-3.5.2-alpha /app
-RUN ln -s /usr/local/apache-zookeeper/zookeeper-3.5.2-alpha/conf /config
+EXPOSE 2181
 
-COPY zk-config /app/bin
-COPY startup /
-#COPY wait-for-step.sh /
-#COPY execute-step.sh /
-#COPY finish-step.sh /
+COPY wait-for-step.sh /
+COPY execute-step.sh /
+COPY finish-step.sh /
+
+COPY healthcheck /
+COPY zookeeper-startup.sh /
+
+CMD [ "./zookeeper-startup.sh" ]
